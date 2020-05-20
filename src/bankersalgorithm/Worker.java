@@ -49,8 +49,7 @@ public class Worker extends Thread {
                         try {
                             //request up to the full needed amount
                             //prevents asking for more than the max resources allowed for the process
-                            request[i] = random.nextInt(myNeed[i]);
-
+                            request[i] = Math.max(1,random.nextInt(myNeed[i])); //ensures if the random bound i is 1, request[i] doesn't always become 0 and cause an infinite loop
                         }
                         catch (IllegalArgumentException e){
                             e.printStackTrace();
@@ -89,7 +88,7 @@ public class Worker extends Thread {
 
         }
 
-        System.out.println("Worker " + index + " exiting. its resources deallocated");
+        System.out.println("Worker " + index + " exiting.");
         rBank.deAllocateResources(index);
     }
 
